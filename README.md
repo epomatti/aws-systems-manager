@@ -12,3 +12,9 @@ Some of the most important Systems Manager components:
 
 EC2 instances will require the Systems Manager agent.
 
+Create the EC2 role:
+
+```sh
+aws iam create-role --role-name 'EC2SSMRole' --assume-role-policy-document 'file://trust-policy.json'
+aws iam attach-role-policy --policy-arn 'arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore' --role-name 'EC2SSMRole'
+```
