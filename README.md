@@ -52,3 +52,9 @@ To check everything is ok go to Systems Manager and check the Fleet Manager blad
 
 ## Automation
 
+Example running an automation from an existing document using the Console:
+
+1. In the Systems Manager service, go to the "Shared Resources" > "Documents" blade
+2. Search for `AWS-StopEC2Instance`
+3. Click in "Execute the automation" and proceed with the execution
+
