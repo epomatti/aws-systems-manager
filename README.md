@@ -10,7 +10,9 @@ Some of the most important Systems Manager components:
 - **Session Manager:** Allows connectivity to EC2 instances without administrative ports
 - **Parameter Store:** Parameters and variables administration
 
-EC2 instances will require the Systems Manager agent.
+EC2 instances will require the Systems Manager agent. Use an image that has it or install it.
+
+## Instances setup
 
 Create the EC2 role:
 
@@ -47,4 +49,6 @@ aws ec2 run-instances --image-id 'ami-02bddcf6b9473bd61' --count 1 --instance-ty
 ```
 
 To check everything is ok go to Systems Manager and check the Fleet Manager blade.
+
+## Automation
 
