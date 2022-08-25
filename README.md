@@ -58,3 +58,18 @@ Example running an automation from an existing document using the Console:
 2. Search for `AWS-StopEC2Instance`
 3. Click in "Execute the automation" and proceed with the execution
 
+## Run Command & Patch Manager
+
+List Windows updates:
+
+1. Search for `AWS-FindWindowsUpdates`
+2. Run command
+3. Update level: All
+4. Tags: Environment=Production
+
+Apply Windows updates:
+
+1. Search for `AWS-InstallMissingWindowsUpdates`
+2. Run command
+3. Update level: All
+4. Tags: Environment=Production
