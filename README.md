@@ -46,4 +46,5 @@ aws ec2 run-instances --image-id 'ami-02bddcf6b9473bd61' --count 1 --instance-ty
 aws ec2 run-instances --image-id 'ami-02bddcf6b9473bd61' --count 1 --instance-type 't2.micro' --key-name 'ssm-keypair-sandbox' --iam-instance-profile 'Name=EC2SSMRoleInstanceProfile'  --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=ProdWindows}, {Key=Environment,Value=Production}]'
 ```
 
+To check everything is ok go to Systems Manager and check the Fleet Manager blade.
 
