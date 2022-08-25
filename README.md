@@ -19,7 +19,7 @@ aws iam create-role --role-name 'EC2SSMRole' --assume-role-policy-document 'file
 aws iam attach-role-policy --policy-arn 'arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore' --role-name 'EC2SSMRole'
 ```
 
-Create the EC2 instance:
+Create instance profile & key pair:
 
 ```sh
 # Instance Profile
@@ -28,9 +28,22 @@ aws iam add-role-to-instance-profile --role-name 'EC2SSMRole' --instance-profile
 
 # Key Pair
 aws ec2 import-key-pair --key-name 'ssm-keypair-sandbox' --public-key-material 'fileb://~/.ssh/id_rsa.pub'
-
-# Instances (create 2)
-aws ec2 run-instances --image-id 'ami-0568773882d492fc8' --count 2 --instance-type 't2.micro' --key-name 'ssm-keypair-sandbox' --iam-instance-profile 'Name=EC2SSMRoleInstanceProfile'
-
- --security-group-ids sg-903004f8 --subnet-id subnet-6e7f829e
 ```
+
+Create the instances:
+
+```sh
+# Linux Development
+aws ec2 run-instances --image-id 'ami-0568773882d492fc8' --count 1 --instance-type 't2.micro' --key-name 'ssm-keypair-sandbox' --iam-instance-profile 'Name=EC2SSMRoleInstanceProfile' --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=DevLinux}, {Key=Environment,Value=Development}]'
+
+# Linux Production
+aws ec2 run-instances --image-id 'ami-0568773882d492fc8' --count 1 --instance-type 't2.micro' --key-name 'ssm-keypair-sandbox' --iam-instance-profile 'Name=EC2SSMRoleInstanceProfile' --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=ProdLinux}, {Key=Environment,Value=Production}]'
+
+# Windows Development
+aws ec2 run-instances --image-id 'ami-02bddcf6b9473bd61' --count 1 --instance-type 't2.micro' --key-name 'ssm-keypair-sandbox' --iam-instance-profile 'Name=EC2SSMRoleInstanceProfile'  --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=DevWindows}, {Key=Environment,Value=Development}]'
+
+# Windows Production
+aws ec2 run-instances --image-id 'ami-02bddcf6b9473bd61' --count 1 --instance-type 't2.micro' --key-name 'ssm-keypair-sandbox' --iam-instance-profile 'Name=EC2SSMRoleInstanceProfile'  --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=ProdWindows}, {Key=Environment,Value=Production}]'
+```
+
+
