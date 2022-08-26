@@ -2,15 +2,18 @@
 
 Some of the most important Systems Manager components:
 
-- **Automation:** Database snapshots
-- **Run Command:** EC2 commands, automation, packages
-- **Inventory:** Information collected for inventory
-- **Compliance:** Validates instances against compliance setup
-- **Patch Manager:** Select and deploy patches on EC2 and on-premises
-- **Session Manager:** Allows connectivity to EC2 instances without administrative ports
-- **Parameter Store:** Parameters and variables administration
+- **Automation**
+- **Run Command**
+- **Inventory**
+- **Compliance**
+- **Patch Manager**
+- **Session Manager**
+- **Parameter Store**
 
 EC2 instances will require the Systems Manager agent. Use an image that has it or install it.
+
+<img src="ssm.png" width=300 />
+
 
 ## Instances setup
 
