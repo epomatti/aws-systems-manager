@@ -58,7 +58,7 @@ Example running an automation from an existing document using the Console:
 2. Search for `AWS-StopEC2Instance`
 3. Click in "Execute the automation" and proceed with the execution
 
-## Run Command & Patch Manager
+## Run Command
 
 List Windows updates:
 
@@ -73,3 +73,25 @@ Apply Windows updates:
 2. Run command
 3. Update level: All
 4. Tags: Environment=Production
+
+
+## Patch Manager
+
+Inventory is important for this.
+
+With a scheduling:
+
+1. Go to Configure Patching
+2. Select instance tags
+3. Select the patching schedule, with a maintenance window
+4. Select between Scan Only, or Scan and Install
+
+## Configuration Compliance
+
+To simulate a compliance issue, execute this command to require a custom software that will not be installed in your instance:
+
+```sh
+aws ssm put-compliance-items --resource-id i-08f2c5c184b18ee15 --resource-type ManagedInstance --compliance-type Custom:CorporateSoftware --execution-summary ExecutionTime=1597815633 --items Id=Version-2.0,Title=CorporateSoftware,Severity=CRITICAL,Status=NON_COMPLIANT --region us-east-2
+```
+
+Now your instance should be identified as non-compliant.
