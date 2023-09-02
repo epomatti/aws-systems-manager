@@ -12,37 +12,31 @@ Some of the most important Systems Manager components:
 
 EC2 instances will require the Systems Manager agent. Use an image that has it or install it.
 
-<img src="ssm.png" width=300 />
+<img src=".assets/ssm.png" width=500 />
 
 
 ## Instances setup
 
-Create the EC2 role:
+Generate a temporary key pair:
 
 ```sh
-aws iam create-role --role-name 'EC2SSMRole' --assume-role-policy-document 'file://trust-policy.json'
-aws iam attach-role-policy --policy-arn 'arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore' --role-name 'EC2SSMRole'
+mkdir ./keys && ssh-keygen -f ./keys/aws_id_rsa
 ```
 
-Create instance profile & key pair:
+Create the IAM and EC2 essential objects:
 
 ```sh
-# Instance Profile
-aws iam create-instance-profile --instance-profile-name 'EC2SSMRoleInstanceProfile'
-aws iam add-role-to-instance-profile --role-name 'EC2SSMRole' --instance-profile-name 'EC2SSMRoleInstanceProfile'
-
-# Key Pair
-aws ec2 import-key-pair --key-name 'ssm-keypair-sandbox' --public-key-material 'fileb://~/.ssh/id_rsa.pub'
+bash aws-init.sh
 ```
 
 Create the instances:
 
 ```sh
 # Linux Development
-aws ec2 run-instances --image-id 'ami-0568773882d492fc8' --count 1 --instance-type 't2.micro' --key-name 'ssm-keypair-sandbox' --iam-instance-profile 'Name=EC2SSMRoleInstanceProfile' --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=DevLinux}, {Key=Environment,Value=Development}]'
+aws ec2 run-instances --image-id 'ami-08fdd91d87f63bb09' --count 1 --instance-type 't4g.nano' --key-name 'ssm-keypair-sandbox' --iam-instance-profile 'Name=EC2SSMRoleInstanceProfile' --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=DevLinux}, {Key=Environment,Value=Development}]'
 
 # Linux Production
-aws ec2 run-instances --image-id 'ami-0568773882d492fc8' --count 1 --instance-type 't2.micro' --key-name 'ssm-keypair-sandbox' --iam-instance-profile 'Name=EC2SSMRoleInstanceProfile' --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=ProdLinux}, {Key=Environment,Value=Production}]'
+aws ec2 run-instances --image-id 'ami-08fdd91d87f63bb09' --count 1 --instance-type 't4g.nano' --key-name 'ssm-keypair-sandbox' --iam-instance-profile 'Name=EC2SSMRoleInstanceProfile' --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=ProdLinux}, {Key=Environment,Value=Production}]'
 
 # Windows Development
 aws ec2 run-instances --image-id 'ami-02bddcf6b9473bd61' --count 1 --instance-type 't2.micro' --key-name 'ssm-keypair-sandbox' --iam-instance-profile 'Name=EC2SSMRoleInstanceProfile'  --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=DevWindows}, {Key=Environment,Value=Development}]'
@@ -63,6 +57,8 @@ Example running an automation from an existing document using the Console:
 
 ## Run Command
 
+### Windows Updates
+
 List Windows updates:
 
 1. Search for `AWS-FindWindowsUpdates`
@@ -77,6 +73,34 @@ Apply Windows updates:
 3. Update level: All
 4. Tags: Environment=Production
 
+### Update Linux SSH authorized keys
+
+Use RunCommand to modify the `authorized_keys` file.
+
+Test your local connection to an instance:
+
+```sh
+ssh -i ./keys/aws_id_rsa ubuntu@<publid-ip>
+```
+
+Create a **new pair** of keys:
+
+```sh
+mkdir -p ./keys/new && ssh-keygen -f ./keys/new/aws_id_rsa
+```
+
+As a test, check that running `AWS-RunShellScript` document works:
+
+```sh
+aws ssm send-command \
+    --targets "Key=tag:Name,Values=DevLinux" \
+    --document-name "AWS-RunShellScript" \
+    --comment "Changing the key pair" \
+    --parameters "commands='cp /home/ubuntu/.ssh/authorized_keys /tmp/copy_of_authorized_keys'" \
+    --output text
+```
+
+Now proceed with method of choice for adding or replacing the actual key.
 
 ## Patch Manager
 
@@ -98,3 +122,15 @@ aws ssm put-compliance-items --resource-id i-08f2c5c184b18ee15 --resource-type M
 ```
 
 Now your instance should be identified as non-compliant.
+
+---
+
+### Clean Up
+
+Terminate the EC2 instances.
+
+Run the following script to clean the other objects:
+
+```sh
+bash aws-destroy.sh
+```
