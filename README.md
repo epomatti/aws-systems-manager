@@ -12,7 +12,7 @@ Some of the most important Systems Manager components:
 
 EC2 instances will require the Systems Manager agent. Use an image that has it or install it.
 
-<img src=".assets/ssm.png" width=500 />
+<img src=".assets/ssm.png" width=400 />
 
 
 ## Instances setup
