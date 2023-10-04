@@ -29,3 +29,7 @@ variable "instance_type" {
 variable "user_data_file" {
   type = string
 }
+
+variable "environment_tag" {
+  type = string
+}

@@ -2,50 +2,50 @@
 
 Some of the most important Systems Manager components:
 
-- **Automation**
-- **Run Command**
-- **Inventory**
-- **Compliance**
-- **Patch Manager**
-- **Session Manager**
-- **Parameter Store**
+| SSM Feature     | Example |
+|-----------------|---------|
+| Automation      | |
+| Run Command     | |
+| Inventory       | |
+| Compliance      | |
+| Patch Manager   | |
+| Session Manager | |
+| Parameter Store | |
 
 EC2 instances will require the Systems Manager agent. Use an image that has it or install it.
 
 <img src=".assets/ssm.png" width=400 />
 
-
 ## Instances setup
+
+Start by copying the `.auto.tfvars` file template:
+
+```sh
+cp samples/sample.tfvars .auto.tfvars
+```
 
 Generate a temporary key pair:
 
 ```sh
-mkdir ./keys && ssh-keygen -f ./keys/aws_id_rsa
+mkdir keys
+ssh-keygen -f keys/temp_key
 ```
 
-Create the IAM and EC2 essential objects:
+Create the sandbox infrastructure:
 
 ```sh
-bash aws-init.sh
+terraform init
+terraform apply -auto-approve
 ```
 
-Create the instances:
+Enter the Systems Manager console and check the Fleet Manager blade.
+
+If you prefer using Session Manager with the CLI:
 
 ```sh
-# Linux Development
-aws ec2 run-instances --image-id 'ami-08fdd91d87f63bb09' --count 1 --instance-type 't4g.nano' --key-name 'ssm-keypair-sandbox' --iam-instance-profile 'Name=EC2SSMRoleInstanceProfile' --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=DevLinux}, {Key=Environment,Value=Development}]'
-
-# Linux Production
-aws ec2 run-instances --image-id 'ami-08fdd91d87f63bb09' --count 1 --instance-type 't4g.nano' --key-name 'ssm-keypair-sandbox' --iam-instance-profile 'Name=EC2SSMRoleInstanceProfile' --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=ProdLinux}, {Key=Environment,Value=Production}]'
-
-# Windows Development
-aws ec2 run-instances --image-id 'ami-02bddcf6b9473bd61' --count 1 --instance-type 't2.micro' --key-name 'ssm-keypair-sandbox' --iam-instance-profile 'Name=EC2SSMRoleInstanceProfile'  --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=DevWindows}, {Key=Environment,Value=Development}]'
-
-# Windows Production
-aws ec2 run-instances --image-id 'ami-02bddcf6b9473bd61' --count 1 --instance-type 't2.micro' --key-name 'ssm-keypair-sandbox' --iam-instance-profile 'Name=EC2SSMRoleInstanceProfile'  --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=ProdWindows}, {Key=Environment,Value=Production}]'
+aws ssm start-session \
+    --target instance-id
 ```
-
-To check everything is ok go to Systems Manager and check the Fleet Manager blade.
 
 ## Automation
 

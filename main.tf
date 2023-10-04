@@ -12,7 +12,7 @@ provider "aws" {
 }
 
 locals {
-  workload = "ssmdemo"
+  workload = "ssm"
 }
 
 module "vpc" {
@@ -42,4 +42,5 @@ module "ubuntu" {
   subnet_id               = module.vpc.subnet_id
   user_data_file          = "ubuntu-default.sh"
   instance_label          = "ubuntu-default"
+  environment_tag         = "Development"
 }
