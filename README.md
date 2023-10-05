@@ -7,10 +7,10 @@ Some of the most important Systems Manager components:
 | SSM Feature     | Example scenarios |
 |-----------------|---------|
 | Automation      | Controlling the state (start, stop, restart) EC2 instances. |
-| Run Command     | 1. Find and apply Windows updates. <br/> 2.  |
+| Run Command     | 1. Find and apply Windows updates. <br/> 2. Update SSH authorized keys on Linux machines.  |
+| Patch Manager   | |
 | Inventory       | |
 | Compliance      | |
-| Patch Manager   | |
 | Session Manager | |
 | Parameter Store | |
 
@@ -141,7 +141,7 @@ aws ssm send-command \
     --output text
 ```
 
-## Patch Manager
+## <img src=".assets/icons/ssm-patchmanager.png" width=30 /> Patch Manager
 
 Inventory is important for this.
 
