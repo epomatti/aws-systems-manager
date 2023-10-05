@@ -1,4 +1,6 @@
-# <img src=".assets/icons/ssm.png" width=35 /> AWS Systems Manager
+# AWS Systems Manager
+
+<img src=".assets/icons/ssm.png" width=48 />
 
 Some of the most important Systems Manager components:
 
@@ -12,7 +14,7 @@ Some of the most important Systems Manager components:
 | Session Manager | |
 | Parameter Store | |
 
-## Instances setup
+## <img src=".assets/icons/ec2.png" width=30 /> Instances setup
 
 Start by copying the `.auto.tfvars` file template:
 
