@@ -145,6 +145,10 @@ aws ssm send-command \
 
 Create an inventory association, that is required for Patch Manager.
 
+```
+https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ssm/create-association.html#examples
+```
+
 ## <img src=".assets/icons/ssm-patchmanager.png" width=30 /> Patch Manager
 
 Inventory is important for this.
