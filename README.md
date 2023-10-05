@@ -77,7 +77,7 @@ aws ssm start-automation-execution \
     --parameters "InstanceId=i-00000000000000000"
 ```
 
-## <img src=".assets/icons/ssm-runcommand.png" width=30 />Run Command
+## <img src=".assets/icons/ssm-runcommand.png" width=30 /> Run Command
 
 ### Windows Updates
 
