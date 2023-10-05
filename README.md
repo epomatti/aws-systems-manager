@@ -1,6 +1,6 @@
 # AWS Systems Manager
 
-<img src=".assets/icons/ssm.png" width=48 /> <img src=".assets/icons/ssm-runcommand.png" width=48 />
+<img src=".assets/icons/ssm.png" width=48 /> <img src=".assets/icons/ssm-automation.png" width=48 /> <img src=".assets/icons/ssm-runcommand.png" width=48 />
 
 Some of the most important Systems Manager components:
 
