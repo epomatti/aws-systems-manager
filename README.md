@@ -1,8 +1,8 @@
-# AWS Systems Manager
+# <img src=".assets/icons/ssm.png" width=35 /> AWS Systems Manager
 
 Some of the most important Systems Manager components:
 
-| SSM Feature     | Example |
+| SSM Feature     | Scenario |
 |-----------------|---------|
 | Automation      | |
 | Run Command     | |
@@ -12,13 +12,11 @@ Some of the most important Systems Manager components:
 | Session Manager | |
 | Parameter Store | |
 
-EC2 instances will require the Systems Manager agent. Use an image that has it or install it.
-
-<img src=".assets/ssm.png" width=400 />
-
 ## Instances setup
 
 Start by copying the `.auto.tfvars` file template:
+
+> 💡 The sample config AMIs already include the SSM Agent
 
 ```sh
 cp samples/sample.tfvars .auto.tfvars
@@ -47,13 +45,35 @@ aws ssm start-session \
     --target instance-id
 ```
 
-## Automation
+## <img src=".assets/icons/ssm-automation.png" width=30 /> Automation
 
-Example running an automation from an existing document using the Console:
+### Starting & stopping instances
 
-1. In the Systems Manager service, go to the "Shared Resources" > "Documents" blade
-2. Search for `AWS-StopEC2Instance`
-3. Click in "Execute the automation" and proceed with the execution
+To stop an instance using Automation, use a shared Document:
+
+> ℹ️ Replace the value for "InstanceId"
+
+```sh
+aws ssm start-automation-execution \
+    --document-name "AWS-StopEC2Instance" \
+    --parameters "InstanceId=i-00000000000000000"
+```
+
+To start the instance again:
+
+```sh
+aws ssm start-automation-execution \
+    --document-name "AWS-StartEC2Instance" \
+    --parameters "InstanceId=i-00000000000000000"
+```
+
+Restart is also an option:
+
+```sh
+aws ssm start-automation-execution \
+    --document-name "AWS-RestartEC2Instance" \
+    --parameters "InstanceId=i-00000000000000000"
+```
 
 ## Run Command
 
