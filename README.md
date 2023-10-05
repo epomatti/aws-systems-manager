@@ -117,18 +117,29 @@ Create a **new pair** of keys:
 ssh-keygen -f ./keys/new_temp_key
 ```
 
-As a test, check that running `AWS-RunShellScript` document works:
+Using `AWS-RunShellScript`, backup the `authorized_keys` file:
 
 ```sh
 aws ssm send-command \
-    --targets "Key=tag:Name,Values=DevLinux" \
     --document-name "AWS-RunShellScript" \
-    --comment "Changing the key pair" \
+    --comment "Backup the key pair" \
+    --targets Key=tag:Environment,Values=Development Key=tag:Platform,Values=Linux \
     --parameters "commands='cp /home/ubuntu/.ssh/authorized_keys /tmp/copy_of_authorized_keys'" \
     --output text
 ```
 
 Now proceed with method of choice for adding or replacing the actual key.
+
+Use a safe method in production. For this test you can do:
+
+```sh
+aws ssm send-command \
+    --document-name "AWS-RunShellScript" \
+    --comment "Backup the key pair" \
+    --targets Key=tag:Environment,Values=Development Key=tag:Platform,Values=Linux \
+    --parameters "commands='echo PUBLIC_KEY >> /home/ubuntu/.ssh/authorized_keys'" \
+    --output text
+```
 
 ## Patch Manager
 
