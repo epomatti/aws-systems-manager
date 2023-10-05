@@ -4,10 +4,10 @@
 
 Some of the most important Systems Manager components:
 
-| SSM Feature     | Scenario |
+| SSM Feature     | Example scenarios |
 |-----------------|---------|
-| Automation      | |
-| Run Command     | |
+| Automation      | Controlling the state (start, stop, restart) EC2 instances. |
+| Run Command     | 1. Find and apply Windows updates. <br/> 2.  |
 | Inventory       | |
 | Compliance      | |
 | Patch Manager   | |
@@ -79,34 +79,42 @@ aws ssm start-automation-execution \
 
 ### Windows Updates
 
-List Windows updates:
+Use the document `AWS-FindWindowsUpdates` to find updates for Windows:
 
-1. Search for `AWS-FindWindowsUpdates`
-2. Run command
-3. Update level: All
-4. Tags: Environment=Production
+```sh
+aws ssm send-command \
+    --document-name "AWS-FindWindowsUpdates" \
+    --parameters "UpdateLevel=All" \
+    --targets Key=tag:Environment,Values=Development Key=tag:Platform,Values=Windows
+```
 
-Apply Windows updates:
+Check the console for status and execution output.
 
-1. Search for `AWS-InstallMissingWindowsUpdates`
-2. Run command
-3. Update level: All
-4. Tags: Environment=Production
+You can now use the document `AWS-InstallMissingWindowsUpdates` to install the missing Windows updates:
+
+```sh
+aws ssm send-command \
+    --document-name "AWS-InstallMissingWindowsUpdates" \
+    --parameters "UpdateLevel=All" \
+    --targets Key=tag:Environment,Values=Development Key=tag:Platform,Values=Windows
+```
+
+After applying the updates, you can check for missing updates one more time to confirm it all went well.
 
 ### Update Linux SSH authorized keys
 
-Use RunCommand to modify the `authorized_keys` file.
+Use RunCommand to execute a custom code and edit the `authorized_keys` file.
 
 Test your local connection to an instance:
 
 ```sh
-ssh -i ./keys/aws_id_rsa ubuntu@<publid-ip>
+ssh -i ./keys/temp_key ubuntu@<publid-ip>
 ```
 
 Create a **new pair** of keys:
 
 ```sh
-mkdir -p ./keys/new && ssh-keygen -f ./keys/new/aws_id_rsa
+ssh-keygen -f ./keys/new_temp_key
 ```
 
 As a test, check that running `AWS-RunShellScript` document works:

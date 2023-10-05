@@ -37,5 +37,6 @@ resource "aws_instance" "default" {
   tags = {
     Name        = "${var.workload}-${var.instance_label}"
     Environment = var.environment_tag
+    Platform    = var.platform_tag
   }
 }

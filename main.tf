@@ -52,6 +52,7 @@ module "ubuntu_default" {
   user_data_file          = "ubuntu-default.sh"
   instance_label          = "ubuntu-default"
   environment_tag         = "Development"
+  platform_tag            = "Linux"
 }
 
 module "windows_default" {
@@ -60,11 +61,12 @@ module "windows_default" {
   iam_instance_profile_id = module.iam.instance_profile_id
   key_name                = aws_key_pair.default.key_name
   instance_type           = var.windows_instance_type
-  ami                     = var.linux_ami
+  ami                     = var.windows_ami
   security_group_id       = module.sg.sg_id
   subnet_id               = module.vpc.subnet_id
   user_data_file          = "windows-default.txt"
   instance_label          = "windows-default"
   environment_tag         = "Development"
+  platform_tag            = "Windows"
 }
 
