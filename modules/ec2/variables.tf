@@ -33,3 +33,7 @@ variable "user_data_file" {
 variable "environment_tag" {
   type = string
 }
+
+variable "key_name" {
+  type = string
+}

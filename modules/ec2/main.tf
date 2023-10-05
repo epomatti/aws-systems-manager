@@ -10,6 +10,7 @@ resource "aws_instance" "default" {
   subnet_id                   = var.subnet_id
   vpc_security_group_ids      = [var.security_group_id]
   iam_instance_profile        = var.iam_instance_profile_id
+  key_name                    = var.key_name
 
   user_data = file(local.user_data)
 
