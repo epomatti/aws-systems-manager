@@ -1,6 +1,6 @@
 # AWS Systems Manager
 
-<img src=".assets/icons/ssm.png" width=48 /> <img src=".assets/icons/ssm-automation.png" width=48 /> <img src=".assets/icons/ssm-runcommand.png" width=48 />
+<img src=".assets/icons/ssm.png" width=48 /> <img src=".assets/icons/ssm-automation.png" width=48 /> <img src=".assets/icons/ssm-runcommand.png" width=48 /> <img src=".assets/icons/ssm-inventory.png" width=48 /> <img src=".assets/icons/ssm-patchmanager.png" width=48 /> <img src=".assets/icons/ssm-compliance.png" width=30 />
 
 Some of the most important Systems Manager components:
 
@@ -8,8 +8,8 @@ Some of the most important Systems Manager components:
 |-----------------|---------|
 | Automation      | Controlling the state (start, stop, restart) EC2 instances. |
 | Run Command     | 1. Find and apply Windows updates. <br/> 2. Update SSH authorized keys on Linux machines.  |
-| Patch Manager   | |
 | Inventory       | |
+| Patch Manager   | |
 | Compliance      | |
 | Session Manager | |
 | Parameter Store | |
@@ -141,6 +141,10 @@ aws ssm send-command \
     --output text
 ```
 
+## <img src=".assets/icons/ssm-inventory.png" width=30 /> Inventory
+
+Create an inventory association, that is required for Patch Manager.
+
 ## <img src=".assets/icons/ssm-patchmanager.png" width=30 /> Patch Manager
 
 Inventory is important for this.
@@ -152,12 +156,18 @@ With a scheduling:
 3. Select the patching schedule, with a maintenance window
 4. Select between Scan Only, or Scan and Install
 
-## Configuration Compliance
+## <img src=".assets/icons/ssm-compliance.png" width=30 /> Compliance
 
 To simulate a compliance issue, execute this command to require a custom software that will not be installed in your instance:
 
 ```sh
-aws ssm put-compliance-items --resource-id i-08f2c5c184b18ee15 --resource-type ManagedInstance --compliance-type Custom:CorporateSoftware --execution-summary ExecutionTime=1597815633 --items Id=Version-2.0,Title=CorporateSoftware,Severity=CRITICAL,Status=NON_COMPLIANT --region us-east-2
+aws ssm put-compliance-items \
+    --resource-id i-08f2c5c184b18ee15 \
+    --resource-type ManagedInstance \
+    --compliance-type Custom:CorporateSoftware \
+    --execution-summary ExecutionTime=1597815633 \
+    --items Id=Version-2.0,Title=CorporateSoftware,Severity=CRITICAL,Status=NON_COMPLIANT \
+    --region us-east-2
 ```
 
 Now your instance should be identified as non-compliant.
