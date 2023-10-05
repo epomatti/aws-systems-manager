@@ -1,6 +1,6 @@
 # AWS Systems Manager
 
-<img src=".assets/icons/ssm.png" width=48 />
+<img src=".assets/icons/ssm.png" width=48 /> <img src=".assets/icons/ssm-runcommand.png" width=48 />
 
 Some of the most important Systems Manager components:
 
@@ -77,7 +77,7 @@ aws ssm start-automation-execution \
     --parameters "InstanceId=i-00000000000000000"
 ```
 
-## Run Command
+## <img src=".assets/icons/ssm-runcommand.png" width=30 />Run Command
 
 ### Windows Updates
 
