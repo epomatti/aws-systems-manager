@@ -53,8 +53,6 @@ aws ssm start-session \
 
 To stop an instance using Automation, use a shared Document:
 
-> ℹ️ Replace the value for "InstanceId"
-
 ```sh
 aws ssm start-automation-execution \
     --document-name "AWS-StopEC2Instance" \
