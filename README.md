@@ -176,10 +176,6 @@ Now your instance should be identified as non-compliant.
 
 ### Clean Up
 
-Terminate the EC2 instances.
-
-Run the following script to clean the other objects:
-
 ```sh
-bash aws-destroy.sh
+terraform destroy -auto-approve
 ```
