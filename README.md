@@ -1,6 +1,4 @@
-# AWS Systems Manager
-
-<img src=".assets/icons/ssm.png" width=48 />
+# <img src=".assets/icons/ssm.png" width=40 /> AWS Systems Manager
 
 Short reference implementation for key capabilities of Systems Manager components:
 
