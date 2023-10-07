@@ -150,14 +150,62 @@ When you set up Inventory, a new association `AWS-GatherSoftwareInventory` is cr
 
 ## <img src=".assets/icons/ssm-patchmanager.png" width=30 /> Patch Manager
 
-Inventory is important for this.
+From the documentation:
 
-With a scheduling:
+> Patch Manager, a capability of AWS Systems Manager, automates the process of patching managed nodes with both security-related updates and other types of updates.
 
-1. Go to Configure Patching
-2. Select instance tags
-3. Select the patching schedule, with a maintenance window
-4. Select between Scan Only, or Scan and Install
+Patch Manager can integration with AWS Organizations or a complete management of patches.
+
+As of now, there are for options for `Scan` and `Scan and install` operations:
+
+- Patch Policy (recommended)
+- Host Management
+- Maintenance window
+- On-demand
+
+Patches can be managed in many ways. Let's follow this [walkthrough](https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-cli-commands.html#patch-operations-cli-commands).
+
+To run a simple test, connect to the Linux box and do a `sudo apt update`. There should be packages to upgrade.
+
+<img src=".assets/img/ssm-sudo-apt-update.png" />
+
+Scan the target instance:
+
+```sh
+aws ssm send-command \
+    --document-name 'AWS-RunPatchBaseline' \
+    --targets Key=InstanceIds,Values='i-00000000000000000' \
+    --parameters 'Operation=Scan' \
+    --timeout-seconds 600
+```
+
+Check the operation status:
+
+<img src=".assets/img/ssm-node-missing-patches.png" />
+
+If you check the output, it will be match the `apt update` from before.
+
+To solve the non-compliance issue, run the patch with the `Install` operation:
+
+```sh
+aws ssm send-command \
+    --document-name 'AWS-RunPatchBaseline' \
+    --targets Key=InstanceIds,Values='i-00000000000000000 ' \
+    --parameters 'Operation=Install,RebootOption=RebootIfNeeded' \
+    --timeout-seconds 600
+```
+
+Make sure you set `--timeout-seconds 600` with a compatible value, updates might take a while to complete.
+
+To ensure availability of your solution, make sure the `RebootOption` matches your use case. The default option is `RebootOption=RebootIfNeeded`.
+
+After the document runs, the non-compliant patches were significantly reduced to a 56 count.
+
+<img src=".assets/img/ssm-sudo-apt-upgraded.png" />
+
+The compliance reports should be all green now:
+
+<img src=".assets/img/ssm-100compliant.png" />
 
 ## <img src=".assets/icons/ssm-compliance.png" width=30 /> Compliance
 
