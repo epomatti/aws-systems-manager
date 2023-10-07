@@ -208,7 +208,7 @@ One strategy is to associate schedulers and let it update the agents periodicall
 
 ---
 
-### Clean Up
+### 🧹 Clean Up
 
 ```sh
 terraform destroy -auto-approve
