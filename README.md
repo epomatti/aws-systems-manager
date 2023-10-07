@@ -1,18 +1,18 @@
 # AWS Systems Manager
 
-<img src=".assets/icons/ssm.png" width=48 /> <img src=".assets/icons/ssm-automation.png" width=48 /> <img src=".assets/icons/ssm-runcommand.png" width=48 /> <img src=".assets/icons/ssm-inventory.png" width=48 /> <img src=".assets/icons/ssm-patchmanager.png" width=48 /> <img src=".assets/icons/ssm-compliance.png" width=48 /> <img src=".assets/icons/ssm-statemanager.png" width=48 />
+<img src=".assets/icons/ssm.png" width=48 />
 
-Some of the most important Systems Manager components:
+Short reference implementation for key capabilities of Systems Manager components:
 
-| SSM Feature     | Example scenarios |
-|-----------------|---------|
-| Automation      | Controlling the state (start, stop, restart) EC2 instances. |
-| Run Command     | 1. Find and apply Windows updates. <br/> 2. Update SSH authorized keys on Linux machines.  |
-| Inventory       | |
-| Patch Manager   | |
-| Compliance      | |
-| Session Manager | |
-| Parameter Store | |
+| Icon | SSM Feature     | Example scenarios |
+|-| ----------------|---------|
+| <img src=".assets/icons/ssm-automation.png" width=30 />| Automation      | Controlling the state (start, stop, restart) EC2 instances. |
+| <img src=".assets/icons/ssm-runcommand.png" width=30 /> | Run Command     | 1. Find and apply Windows updates. <br/> 2. Update SSH authorized keys on Linux machines.  |
+| <img src=".assets/icons/ssm-inventory.png" width=30 /> | Inventory       | Dashboard with in-depth information collected about the fleet |
+| <img src=".assets/icons/ssm-patchmanager.png" width=30 /> | Patch Manager   | Scan and install security patches. |
+| <img src=".assets/icons/ssm-compliance.png" width=30 /> | Compliance      | Compliance items registered for instances.|
+| <img src=".assets/icons/ssm-statemanager.png" width=30 /> | State Manager |  Document associations with instances. |
+
 
 ## <img src=".assets/icons/ec2.png" width=30 /> Instances setup
 
