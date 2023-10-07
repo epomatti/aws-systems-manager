@@ -143,11 +143,10 @@ aws ssm send-command \
 
 ## <img src=".assets/icons/ssm-inventory.png" width=30 /> Inventory
 
-Create an inventory association, that is required for Patch Manager.
+If you haven't yet, you'll need to [enable inventory][1] to collect data.
 
-```
-https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ssm/create-association.html#examples
-```
+When you set up Inventory, a new association `AWS-GatherSoftwareInventory` is created on **State Manager**.
+
 
 ## <img src=".assets/icons/ssm-patchmanager.png" width=30 /> Patch Manager
 
@@ -176,6 +175,37 @@ aws ssm put-compliance-items \
 
 Now your instance should be identified as non-compliant.
 
+## <img src=".assets/icons/ssm-statemanager.png" width=30 /> State Manager
+
+With State Manager it is possible to introduce association between SSM Documents and instances.
+
+Following [this example](https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-state-cli.html), it is possible to associate the [`AWS-UpdateSSMAgent`](https://docs.aws.amazon.com/systems-manager/latest/userguide/documents-command-ssm-plugin-reference.html#aws-updatessmagent) document on an instance with a schedule.
+
+To follow thorough with this, open a session on your Linux instance and check the SSM [agent version](https://docs.aws.amazon.com/systems-manager/latest/userguide/ssm-agent-get-version.html):
+
+```sh
+sudo snap list amazon-ssm-agent
+```
+
+It is likely that at least a minor patch needs to be updated.
+
+Create a State Manager association for the instance:
+
+```sh
+aws ssm create-association \
+	--name "AWS-UpdateSSMAgent" \
+	--targets "Key=instanceids,Values=i-00000000000000000"
+```
+
+Check the association status, and if it is successful, the agent will be updated in the instance.
+
+One strategy is to associate schedulers and let it update the agents periodically:
+
+```sh
+--schedule-expression "cron(0 2 ? * SUN *)"
+```
+
+
 ---
 
 ### Clean Up
@@ -183,3 +213,5 @@ Now your instance should be identified as non-compliant.
 ```sh
 terraform destroy -auto-approve
 ```
+
+[1]: https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-configuring.html
