@@ -101,7 +101,7 @@ aws ssm send-command \
 
 After applying the updates, you can check for missing updates one more time to confirm it all went well.
 
-### Update Linux SSH authorized keys
+### Linux - Update SSH authorized keys
 
 Use RunCommand to execute a custom code and edit the `authorized_keys` file.
 
