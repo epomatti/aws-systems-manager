@@ -10,6 +10,7 @@ Short reference implementation for key capabilities of Systems Manager component
 | <img src=".assets/icons/ssm-patchmanager.png" width=30 /> | Patch Manager   | Scan and install security patches. |
 | <img src=".assets/icons/ssm-compliance.png" width=30 /> | Compliance      | Compliance items registered for instances.|
 | <img src=".assets/icons/ssm-statemanager.png" width=30 /> | State Manager |  Document associations with instances. |
+| <img src=".assets/icons/ssm-distributor.png" width=30 /> | Distributor |  Install the CloudWatch Agent package. |
 
 
 ## <img src=".assets/icons/ec2.png" width=30 /> Instances setup
@@ -255,6 +256,18 @@ One strategy is to associate schedulers and let it update the agents periodicall
 --schedule-expression "cron(0 2 ? * SUN *)"
 ```
 
+## <img src=".assets/icons/ssm-distributor.png" width=30 /> Distributor
+
+You can use distributor to install AWS or custom packages.
+
+Here is an example installing the `AmazonCloudWatchAgent` package:
+
+```sh
+aws ssm send-command \
+    --document-name "AWS-ConfigureAWSPackage" \
+    --instance-ids "i-00000000000000000" \
+    --parameters '{"action":["Install"],"installationType":["Uninstall and reinstall"],"name":["AmazonCloudWatchAgent"]}'
+```
 
 ---
 
