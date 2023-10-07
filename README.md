@@ -161,11 +161,13 @@ With a scheduling:
 
 ## <img src=".assets/icons/ssm-compliance.png" width=30 /> Compliance
 
-To simulate a compliance issue, execute this command to require a custom software that will not be installed in your instance:
+You can use SSM Compliance to scan your fleet of managed nodes for patch compliance and configuration inconsistencies
+
+To simulate a compliance issue, execute this command to require a custom software that is not installed in your instance:
 
 ```sh
 aws ssm put-compliance-items \
-    --resource-id i-08f2c5c184b18ee15 \
+    --resource-id i-00000000000000000 \
     --resource-type ManagedInstance \
     --compliance-type Custom:CorporateSoftware \
     --execution-summary ExecutionTime=1597815633 \
@@ -173,7 +175,9 @@ aws ssm put-compliance-items \
     --region us-east-2
 ```
 
-Now your instance should be identified as non-compliant.
+Check your fleet status, and the targeted instance should appear as non-compliant:
+
+<img src=".assets/img/ssm-compliance.png" />
 
 ## <img src=".assets/icons/ssm-statemanager.png" width=30 /> State Manager
 
