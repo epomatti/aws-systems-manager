@@ -269,6 +269,12 @@ aws ssm send-command \
     --parameters '{"action":["Install"],"installationType":["Uninstall and reinstall"],"name":["AmazonCloudWatchAgent"]}'
 ```
 
+Wait for the command to execute and test the instance:
+
+```sh
+amazon-cloudwatch-agent-ctl -help
+```
+
 ---
 
 ### 🧹 Clean Up
