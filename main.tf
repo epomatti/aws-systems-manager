@@ -2,7 +2,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "5.20.0"
+      version = "5.22.0"
     }
   }
 }
@@ -70,3 +70,12 @@ module "windows_default" {
   platform_tag            = "Windows"
 }
 
+module "asg" {
+  source        = "./modules/asg"
+  workload      = local.workload
+  instance_type = var.linux_instance_type
+  ami           = var.linux_ami
+  vpc_id        = module.vpc.vpc_id
+  key_name      = aws_key_pair.default.key_name
+  subnet_id     = module.vpc.subnet_id
+}
