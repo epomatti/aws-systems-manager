@@ -45,6 +45,7 @@ resource "aws_launch_template" "main" {
 
     ebs {
       volume_size = 20
+      volume_type = "gp3"
     }
   }
 
@@ -58,7 +59,8 @@ resource "aws_launch_template" "main" {
     resource_type = "instance"
 
     tags = {
-      Name = "ssm-asg-instance"
+      Name    = "ssm-asg-instance"
+      Cluster = "ASG"
     }
   }
 }

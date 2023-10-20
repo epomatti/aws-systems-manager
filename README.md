@@ -206,6 +206,18 @@ The compliance reports should be all green now:
 
 <img src=".assets/img/ssm-100compliant.png" />
 
+### ASG
+
+To patch the ASG:
+
+```sh
+aws ssm send-command \
+    --document-name 'AWS-RunPatchBaseline' \
+    --targets Key=tag:Cluster,Values=ASG \
+    --parameters 'Operation=Install,RebootOption=RebootIfNeeded' \
+    --timeout-seconds 600
+```
+
 ## <img src=".assets/icons/ssm-compliance.png" width=30 /> Compliance
 
 You can use SSM Compliance to scan your fleet of managed nodes for patch compliance and configuration inconsistencies
