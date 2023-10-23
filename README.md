@@ -257,7 +257,7 @@ And add the following policy to the IAM Instance Profile:
         "Resource" : "arn:aws:s3:::aws-quicksetup-patchpolicy-*"
         }
     ]
-})
+}
 ```
 
 
