@@ -230,6 +230,36 @@ Selecting this option should not generate S3 and tags issues:
 
 <img src=".assets/img/ssm-patchpolicy-s3.png" />
 
+To deal with such issues, you can ignore tag changes in Terraform:
+
+```terraform
+provider "aws" {
+  region = var.aws_region
+
+  ignore_tags {
+    key_prefixes = [
+      "QSConfigName-",
+      "QSConfigId-",
+    ]
+  }
+}
+```
+
+And add the following policy to the IAM Instance Profile:
+
+```json
+{
+"Version" : "2012-10-17",
+    "Statement" : [
+        {
+        "Effect" : "Allow",
+        "Action" : "s3:GetObject",
+        "Resource" : "arn:aws:s3:::aws-quicksetup-patchpolicy-*"
+        }
+    ]
+})
+```
+
 
 ## <img src=".assets/icons/ssm-compliance.png" width=30 /> Compliance
 
