@@ -19,11 +19,16 @@ resource "aws_instance" "default" {
     http_tokens   = "required"
   }
 
-  monitoring    = false
-  ebs_optimized = false
+  monitoring    = true
+  ebs_optimized = true
 
   root_block_device {
-    encrypted = true
+    encrypted   = true
+    volume_type = "gp3"
+
+    tags = {
+      "Name" = "${var.workload}-${var.instance_label}"
+    }
   }
 
   lifecycle {
