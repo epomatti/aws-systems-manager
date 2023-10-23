@@ -218,6 +218,19 @@ aws ssm send-command \
     --timeout-seconds 600
 ```
 
+### Patch Policy
+
+Currently, only the Console supports this via Quick Setup.
+
+If you have issues when deploying stack sets, try deleting [IAM roles and permissions](https://docs.aws.amazon.com/systems-manager/latest/userguide/quick-setup-getting-started.html#quick-setup-getting-started-iam) that are used. You might have to delete the StackSet and it's stale stacks prior to that.
+
+If you run into the ["Invoke-PatchBaselineOperation : Access Denied"](https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-troubleshooting.html#patch-manager-troubleshooting-patch-policy-baseline-overrides) issue, follow the instructions to fix it. For that, you must understand the [bucket permissions](https://docs.aws.amazon.com/systems-manager/latest/userguide/quick-setup-patch-manager.html#patch-policy-s3-bucket-permissions) architecture for this service.
+
+Selecting this option should not generate S3 and tags issues:
+
+<img src=".assets/img/ssm-patchpolicy-s3.png" />
+
+
 ## <img src=".assets/icons/ssm-compliance.png" width=30 /> Compliance
 
 You can use SSM Compliance to scan your fleet of managed nodes for patch compliance and configuration inconsistencies
