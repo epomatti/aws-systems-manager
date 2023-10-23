@@ -17,3 +17,7 @@ variable "windows_instance_type" {
 variable "windows_ami" {
   type = string
 }
+
+variable "create_asg" {
+  type = bool
+}

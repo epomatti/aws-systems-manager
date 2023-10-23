@@ -40,37 +40,38 @@ module "sg" {
 }
 
 ### Instances ###
-# module "ubuntu_default" {
-#   source                  = "./modules/ec2"
-#   workload                = local.workload
-#   iam_instance_profile_id = module.iam.instance_profile_id
-#   key_name                = aws_key_pair.default.key_name
-#   instance_type           = var.linux_instance_type
-#   ami                     = var.linux_ami
-#   security_group_id       = module.sg.sg_id
-#   subnet_id               = module.vpc.subnet_id
-#   user_data_file          = "ubuntu-default.sh"
-#   instance_label          = "ubuntu-default"
-#   environment_tag         = "Development"
-#   platform_tag            = "Linux"
-# }
+module "ubuntu_default" {
+  source                  = "./modules/ec2"
+  workload                = local.workload
+  iam_instance_profile_id = module.iam.instance_profile_id
+  key_name                = aws_key_pair.default.key_name
+  instance_type           = var.linux_instance_type
+  ami                     = var.linux_ami
+  security_group_id       = module.sg.sg_id
+  subnet_id               = module.vpc.subnet_id
+  user_data_file          = "ubuntu-default.sh"
+  instance_label          = "ubuntu-default"
+  environment_tag         = "Development"
+  platform_tag            = "Linux"
+}
 
-# module "windows_default" {
-#   source                  = "./modules/ec2"
-#   workload                = local.workload
-#   iam_instance_profile_id = module.iam.instance_profile_id
-#   key_name                = aws_key_pair.default.key_name
-#   instance_type           = var.windows_instance_type
-#   ami                     = var.windows_ami
-#   security_group_id       = module.sg.sg_id
-#   subnet_id               = module.vpc.subnet_id
-#   user_data_file          = "windows-default.txt"
-#   instance_label          = "windows-default"
-#   environment_tag         = "Development"
-#   platform_tag            = "Windows"
-# }
+module "windows_default" {
+  source                  = "./modules/ec2"
+  workload                = local.workload
+  iam_instance_profile_id = module.iam.instance_profile_id
+  key_name                = aws_key_pair.default.key_name
+  instance_type           = var.windows_instance_type
+  ami                     = var.windows_ami
+  security_group_id       = module.sg.sg_id
+  subnet_id               = module.vpc.subnet_id
+  user_data_file          = "windows-default.txt"
+  instance_label          = "windows-default"
+  environment_tag         = "Development"
+  platform_tag            = "Windows"
+}
 
 module "asg" {
+  count         = var.create_asg == true ? 1 : 0
   source        = "./modules/asg"
   workload      = local.workload
   instance_type = var.linux_instance_type
