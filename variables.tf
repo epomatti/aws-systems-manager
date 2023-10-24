@@ -41,3 +41,8 @@ variable "ssm_maintenance_window_schedule_timezone" {
   type    = string
   default = "America/Sao_Paulo"
 }
+
+variable "ssm_maintenance_window_schedule_run_command_operation" {
+  type    = string
+  default = "Scan"
+}

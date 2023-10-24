@@ -5,7 +5,7 @@ resource "aws_ssm_maintenance_window" "default" {
   duration                   = 3
   cutoff                     = 1
   schedule_timezone          = var.schedule_timezone
-  allow_unassociated_targets = false
+  allow_unassociated_targets = true
 }
 
 resource "aws_ssm_maintenance_window_target" "linux" {
@@ -50,11 +50,11 @@ resource "aws_ssm_maintenance_window_task" "aws_run_patch_baseline" {
         values = ["RebootIfNeeded"]
       }
 
+      # Scan / Install
       parameter {
         name   = "Operation"
-        values = ["Scan"]
+        values = [var.ssm_maintenance_window_schedule_run_command_operation]
       }
-
     }
   }
 

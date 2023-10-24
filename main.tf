@@ -107,7 +107,7 @@ module "mw_linux" {
   security_group_id       = module.sg.sg_id
   subnet_id               = module.vpc.subnet_id
   user_data_file          = "ubuntu-default.sh"
-  instance_label          = "linux-maintenance-window"
+  instance_label          = "linux-maint-wind"
   environment_tag         = "MaintenanceWindow"
   platform_tag            = "Linux"
 }
@@ -118,4 +118,6 @@ module "maintenance_window" {
   schedule_cron       = var.ssm_maintenance_window_schedule_cron
   schedule_timezone   = var.ssm_maintenance_window_schedule_timezone
   instance_id_targets = [module.mw_linux[0].instance_id]
+
+  ssm_maintenance_window_schedule_run_command_operation = var.ssm_maintenance_window_schedule_run_command_operation
 }
