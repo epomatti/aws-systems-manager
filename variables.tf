@@ -10,6 +10,11 @@ variable "linux_ami" {
   type = string
 }
 
+variable "create_default_instances" {
+  type    = bool
+  default = true
+}
+
 variable "windows_instance_type" {
   type = string
 }
@@ -20,6 +25,11 @@ variable "windows_ami" {
 
 variable "create_asg" {
   type = bool
+}
+
+variable "create_ssm_maintenance_window_resources" {
+  type    = bool
+  default = true
 }
 
 variable "ssm_maintenance_window_schedule_cron" {

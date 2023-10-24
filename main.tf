@@ -48,6 +48,7 @@ module "sg" {
 
 ### Instances ###
 module "ubuntu_default" {
+  count                   = var.create_default_instances == true ? 1 : 0
   source                  = "./modules/ec2"
   workload                = local.workload
   iam_instance_profile_id = module.iam.instance_profile_id
@@ -63,6 +64,7 @@ module "ubuntu_default" {
 }
 
 module "windows_default" {
+  count                   = var.create_default_instances == true ? 1 : 0
   source                  = "./modules/ec2"
   workload                = local.workload
   iam_instance_profile_id = module.iam.instance_profile_id
@@ -77,7 +79,7 @@ module "windows_default" {
   platform_tag            = "Windows"
 }
 
-# ASG
+### ASG ###
 module "asg" {
   count         = var.create_asg == true ? 1 : 0
   source        = "./modules/asg"
@@ -89,8 +91,13 @@ module "asg" {
   subnet_id     = module.vpc.subnet_id
 }
 
-# Maintenance Window
+### Maintenance Window ###
+locals {
+  ssm_wm_create = var.create_ssm_maintenance_window_resources == true ? 1 : 0
+}
+
 module "mw_linux" {
+  count                   = local.ssm_wm_create
   source                  = "./modules/ec2"
   workload                = local.workload
   iam_instance_profile_id = module.iam.instance_profile_id
@@ -106,8 +113,9 @@ module "mw_linux" {
 }
 
 module "maintenance_window" {
+  count               = local.ssm_wm_create
   source              = "./modules/maintenance-window"
   schedule_cron       = var.ssm_maintenance_window_schedule_cron
   schedule_timezone   = var.ssm_maintenance_window_schedule_timezone
-  instance_id_targets = [module.mw_linux.instance_id]
+  instance_id_targets = [module.mw_linux[0].instance_id]
 }
