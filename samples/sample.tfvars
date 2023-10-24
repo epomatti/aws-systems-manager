@@ -19,8 +19,8 @@ create_asg = false
 
 ### Maintenance Window ###
 create_ssm_maintenance_window_resources  = true
-ssm_maintenance_window_schedule_cron     = "cron(25 0 ? * * *)"
+ssm_maintenance_window_schedule_cron     = "cron(45 0 ? * * *)"
 ssm_maintenance_window_schedule_timezone = "America/Sao_Paulo"
 
 # Scan / Install
-ssm_maintenance_window_schedule_run_command_operation = "Install"
+ssm_maintenance_window_schedule_run_command_operation = "Scan"
