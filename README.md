@@ -249,14 +249,14 @@ And add the following policy to the IAM Instance Profile:
 
 ```json
 {
-"Version" : "2012-10-17",
-    "Statement" : [
-        {
-        "Effect" : "Allow",
-        "Action" : "s3:GetObject",
-        "Resource" : "arn:aws:s3:::aws-quicksetup-patchpolicy-*"
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::aws-quicksetup-patchpolicy-*"
+    }
+  ]
 }
 ```
 
