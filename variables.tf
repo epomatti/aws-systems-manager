@@ -21,3 +21,13 @@ variable "windows_ami" {
 variable "create_asg" {
   type = bool
 }
+
+variable "ssm_maintenance_window_schedule_cron" {
+  type    = string
+  default = "cron(30 22 ? * * *)"
+}
+
+variable "ssm_maintenance_window_schedule_timezone" {
+  type    = string
+  default = "America/Sao_Paulo"
+}

@@ -77,6 +77,7 @@ module "windows_default" {
   platform_tag            = "Windows"
 }
 
+# ASG
 module "asg" {
   count         = var.create_asg == true ? 1 : 0
   source        = "./modules/asg"
@@ -86,4 +87,27 @@ module "asg" {
   vpc_id        = module.vpc.vpc_id
   key_name      = aws_key_pair.default.key_name
   subnet_id     = module.vpc.subnet_id
+}
+
+# Maintenance Window
+module "mw_linux" {
+  source                  = "./modules/ec2"
+  workload                = local.workload
+  iam_instance_profile_id = module.iam.instance_profile_id
+  key_name                = aws_key_pair.default.key_name
+  instance_type           = var.linux_instance_type
+  ami                     = var.linux_ami
+  security_group_id       = module.sg.sg_id
+  subnet_id               = module.vpc.subnet_id
+  user_data_file          = "ubuntu-default.sh"
+  instance_label          = "linux-maintenance-window"
+  environment_tag         = "MaintenanceWindow"
+  platform_tag            = "Linux"
+}
+
+module "maintenance_window" {
+  source              = "./modules/maintenance-window"
+  schedule_cron       = var.ssm_maintenance_window_schedule_cron
+  schedule_timezone   = var.ssm_maintenance_window_schedule_timezone
+  instance_id_targets = [module.mw_linux.instance_id]
 }
