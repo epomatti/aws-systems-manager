@@ -264,7 +264,11 @@ And add the following policy to the IAM Instance Profile:
 
 This project creates maintenance windows configurations.
 
-Check it out in the SSM console when deployed.`
+Check it out in the SSM console when deployed.
+
+To know more about the [`No Invocations to Execute`](https://repost.aws/knowledge-center/ssm-no-invocations-automation) message.
+
+> I solved the issue above by associating targets as opposed to instance IDs to my task.
 
 
 ## <img src=".assets/icons/ssm-compliance.png" width=30 /> Compliance

@@ -5,7 +5,7 @@ resource "aws_ssm_maintenance_window" "default" {
   duration                   = 3
   cutoff                     = 1
   schedule_timezone          = var.schedule_timezone
-  allow_unassociated_targets = true
+  allow_unassociated_targets = false
 }
 
 resource "aws_ssm_maintenance_window_target" "linux" {
@@ -32,8 +32,8 @@ resource "aws_ssm_maintenance_window_task" "aws_run_patch_baseline" {
   window_id       = aws_ssm_maintenance_window.default.id
 
   targets {
-    key    = "InstanceIds"
-    values = var.instance_id_targets
+    key    = "WindowTargetIds"
+    values = [aws_ssm_maintenance_window_target.linux.id]
   }
 
   task_invocation_parameters {
