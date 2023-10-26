@@ -264,7 +264,7 @@ And add the following policy to the IAM Instance Profile:
 
 This project creates maintenance windows configurations.
 
-Check it out in the SSM console when deployed.
+Check it out in the SSM console when deployed.`
 
 
 ## <img src=".assets/icons/ssm-compliance.png" width=30 /> Compliance

@@ -27,6 +27,8 @@ variable "create_asg" {
   type = bool
 }
 
+
+### Maintenance Window ###
 variable "create_ssm_maintenance_window_resources" {
   type    = bool
   default = true
@@ -45,4 +47,8 @@ variable "ssm_maintenance_window_schedule_timezone" {
 variable "ssm_maintenance_window_schedule_run_command_operation" {
   type    = string
   default = "Scan"
+}
+
+variable "ssm_maintenance_windows_instance_type" {
+  type = string
 }

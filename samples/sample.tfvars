@@ -22,5 +22,7 @@ create_ssm_maintenance_window_resources  = true
 ssm_maintenance_window_schedule_cron     = "cron(45 0 ? * * *)"
 ssm_maintenance_window_schedule_timezone = "America/Sao_Paulo"
 
+ssm_maintenance_windows_instance_type = "t4g.micro"
+
 # Scan / Install
 ssm_maintenance_window_schedule_run_command_operation = "Scan"

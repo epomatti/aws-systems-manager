@@ -11,6 +11,7 @@ provider "aws" {
   region = var.aws_region
 
   ignore_tags {
+    # Ignores dynamic tags added by the Patch Policy
     key_prefixes = [
       "QSConfigName-",
       "QSConfigId-",
@@ -102,7 +103,7 @@ module "mw_linux" {
   workload                = local.workload
   iam_instance_profile_id = module.iam.instance_profile_id
   key_name                = aws_key_pair.default.key_name
-  instance_type           = var.linux_instance_type
+  instance_type           = var.ssm_maintenance_windows_instance_type
   ami                     = var.linux_ami
   security_group_id       = module.sg.sg_id
   subnet_id               = module.vpc.subnet_id
