@@ -38,7 +38,6 @@ resource "aws_ssm_maintenance_window_task" "aws_run_patch_baseline" {
 
   task_invocation_parameters {
 
-    # https://repost.aws/knowledge-center/ssm-no-invocations-automation
     # https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-aws-runpatchbaseline.html
     run_command_parameters {
       document_version = "$LATEST"
