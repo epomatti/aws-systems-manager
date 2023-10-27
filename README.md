@@ -220,7 +220,7 @@ aws ssm send-command \
 
 ### Patch Policy
 
-Currently, only the Console supports this via Quick Setup.
+Currently, only the Console supports this via Quick Setup. A good reference for patching is [this article](https://aws.amazon.com/blogs/mt/how-moodys-uses-aws-systems-manager-to-patch-servers-across-multiple-cloud-providers/).
 
 If you have issues when deploying stack sets, try deleting [IAM roles and permissions](https://docs.aws.amazon.com/systems-manager/latest/userguide/quick-setup-getting-started.html#quick-setup-getting-started-iam) that are used. You might have to delete the StackSet and it's stale stacks prior to that.
 
