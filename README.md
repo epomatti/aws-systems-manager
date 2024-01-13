@@ -214,6 +214,12 @@ The compliance reports should be all green now:
 
 <img src=".assets/img/ssm-100compliant.png" />
 
+In can you want to check the status of the agent:
+
+```sh
+sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -m ec2 -a status
+```
+
 ### Auto Scaling Groups (ASG)
 
 There is an ASG resource available in this Terraform configuration. Enable it for testing.
