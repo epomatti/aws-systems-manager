@@ -14,4 +14,4 @@ dpkg -i -E ./amazon-cloudwatch-agent.deb
 
 # IAM requires permission for this
 ssmParameterName=AmazonCloudWatch-linux-for-PatchManager
-/opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s -c ssm:$ssmParameterName
+/opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c ssm:$ssmParameterName -s
