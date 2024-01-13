@@ -49,7 +49,7 @@ module "sg" {
 
 ### Instances ###
 module "ubuntu_default" {
-  count                   = var.create_default_instances == true ? 1 : 0
+  count                   = var.create_default_linux_instances == true ? 1 : 0
   source                  = "./modules/ec2"
   workload                = local.workload
   iam_instance_profile_id = module.iam.instance_profile_id
@@ -65,7 +65,7 @@ module "ubuntu_default" {
 }
 
 module "windows_default" {
-  count                   = var.create_default_instances == true ? 1 : 0
+  count                   = var.create_default_windows_instances == true ? 1 : 0
   source                  = "./modules/ec2"
   workload                = local.workload
   iam_instance_profile_id = module.iam.instance_profile_id

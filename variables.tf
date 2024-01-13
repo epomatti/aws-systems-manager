@@ -10,7 +10,12 @@ variable "linux_ami" {
   type = string
 }
 
-variable "create_default_instances" {
+variable "create_default_linux_instances" {
+  type    = bool
+  default = true
+}
+
+variable "create_default_windows_instances" {
   type    = bool
   default = true
 }
