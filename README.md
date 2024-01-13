@@ -242,7 +242,7 @@ You can schedule a policy using crontab. Example:
 
 ```
 # Run at 10:00 am (UTC) every day
-cron(0 10 * * * ? *)
+cron(30 20 * * ? *)
 ```
 
 If you have issues when deploying stack sets, try deleting [IAM roles and permissions](https://docs.aws.amazon.com/systems-manager/latest/userguide/quick-setup-getting-started.html#quick-setup-getting-started-iam) that are used. You might have to delete the StackSet and it's stale stacks prior to that.
