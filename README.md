@@ -238,6 +238,12 @@ aws ssm send-command \
 
 Currently, only the Console supports this via Quick Setup. A good reference for patching is [this article](https://aws.amazon.com/blogs/mt/how-moodys-uses-aws-systems-manager-to-patch-servers-across-multiple-cloud-providers/).
 
+As per requirements for a [custom instance profile](https://docs.aws.amazon.com/systems-manager/latest/userguide/quick-setup-patch-manager.html#patch-policy-s3-bucket-permissions):
+
+- Add policy `AmazonSSMManagedInstanceCore` to the instance profile or service role.
+- Add permissions to access the required `aws-quicksetup-patchpolicy-*` buckets.
+- Add the `QSConfigId-<abcde>=<abcde>` tag to the instance profile or service role.
+
 You can schedule a policy using crontab. Example:
 
 ```
