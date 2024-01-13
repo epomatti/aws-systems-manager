@@ -1,10 +1,6 @@
 resource "aws_iam_instance_profile" "default" {
   name = "${var.workload}-intance-profile"
   role = aws_iam_role.default.id
-
-  tags = {
-    "QSConfigId-${var.ssm_patchmanager_quicksetup_config_id}" = "${var.ssm_patchmanager_quicksetup_config_id}"
-  }
 }
 
 resource "aws_iam_role" "default" {
@@ -23,6 +19,10 @@ resource "aws_iam_role" "default" {
       },
     ]
   })
+
+  tags = {
+    "QSConfigId-${var.ssm_patchmanager_quicksetup_config_id}" = "${var.ssm_patchmanager_quicksetup_config_id}"
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "ssm_managed_instance_core" {

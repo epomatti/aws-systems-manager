@@ -13,8 +13,7 @@ provider "aws" {
   ignore_tags {
     # Ignores dynamic tags added by the Patch Policy
     key_prefixes = [
-      "QSConfigName-",
-      "QSConfigId-",
+      "QSConfigName-"
     ]
   }
 }
