@@ -13,8 +13,5 @@ wget https://amazoncloudwatch-agent-$region.s3.$region.amazonaws.com/ubuntu/$pla
 dpkg -i -E ./amazon-cloudwatch-agent.deb
 
 # IAM requires permission for this
-ssmParameterName=AmazonCloudWatch-linux
+ssmParameterName=AmazonCloudWatch-linux-for-PatchManager
 /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s -c ssm:$ssmParameterName
-
-
-reboot

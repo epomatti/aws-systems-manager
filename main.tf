@@ -47,6 +47,10 @@ module "sg" {
   vpc_id   = module.vpc.vpc_id
 }
 
+module "ssm" {
+  source = "./modules/ssm"
+}
+
 ### Instances ###
 module "ubuntu_default" {
   count                   = var.create_default_linux_instances == true ? 1 : 0
@@ -62,6 +66,8 @@ module "ubuntu_default" {
   instance_label          = "ubuntu-default"
   environment_tag         = "Development"
   platform_tag            = "Linux"
+
+  depends_on = [module.ssm]
 }
 
 module "windows_default" {
@@ -78,6 +84,8 @@ module "windows_default" {
   instance_label          = "windows-default"
   environment_tag         = "Development"
   platform_tag            = "Windows"
+
+  depends_on = [module.ssm]
 }
 
 ### ASG ###
