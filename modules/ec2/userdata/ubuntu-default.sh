@@ -14,3 +14,6 @@ dpkg -i -E ./amazon-cloudwatch-agent.deb
 
 ssmParameterName=AmazonCloudWatch-linux
 /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s -c ssm:$ssmParameterName
+
+
+reboot

@@ -46,6 +46,14 @@ aws ssm start-session \
     --target instance-id
 ```
 
+Check if the instance components have been installed:
+
+```sh
+cloud-init status
+
+sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -m ec2 -a status
+```
+
 ## <img src=".assets/icons/ssm-automation.png" width=30 /> Automation
 
 ### Starting & stopping instances
@@ -155,7 +163,7 @@ From the documentation:
 
 Patch Manager can integration with AWS Organizations or a complete management of patches.
 
-As of now, there are for options for `Scan` and `Scan and install` operations:
+As of now, there are four options for `Scan` and `Scan and install` operations:
 
 - Patch Policy (recommended)
 - Host Management
@@ -206,9 +214,11 @@ The compliance reports should be all green now:
 
 <img src=".assets/img/ssm-100compliant.png" />
 
-### ASG
+### Auto Scaling Groups (ASG)
 
-To patch the ASG:
+There is an ASG resource available in this Terraform configuration. Enable it for testing.
+
+To patch instances in an ASG:
 
 ```sh
 aws ssm send-command \
@@ -221,6 +231,13 @@ aws ssm send-command \
 ### Patch Policy
 
 Currently, only the Console supports this via Quick Setup. A good reference for patching is [this article](https://aws.amazon.com/blogs/mt/how-moodys-uses-aws-systems-manager-to-patch-servers-across-multiple-cloud-providers/).
+
+You can schedule a policy using crontab. Example:
+
+```
+# Run at 10:00 am (UTC) every day
+cron(0 10 * * * ? *)
+```
 
 If you have issues when deploying stack sets, try deleting [IAM roles and permissions](https://docs.aws.amazon.com/systems-manager/latest/userguide/quick-setup-getting-started.html#quick-setup-getting-started-iam) that are used. You might have to delete the StackSet and it's stale stacks prior to that.
 
