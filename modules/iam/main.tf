@@ -26,7 +26,11 @@ resource "aws_iam_role_policy_attachment" "ssm_managed_instance_core" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
 }
 
-
+# Required to install the SSM agent
+resource "aws_iam_role_policy_attachment" "AmazonSSMReadOnlyAccess" {
+  role       = aws_iam_role.default.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess"
+}
 
 resource "aws_iam_role_policy" "aws_quicksetup_patchpolicy" {
   name = "quicksetup-patchpolicy-baselineoverrides-s3"
