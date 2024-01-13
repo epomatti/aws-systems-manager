@@ -3,6 +3,8 @@ aws_region = "us-east-2"
 
 
 ### Default instances ###
+ssm_patchmanager_quicksetup_config_id = "<changeit>"
+
 create_default_linux_instances = true
 linux_ami                      = "ami-08fdd91d87f63bb09" # Canonical, Ubuntu, 22.04 LTS, arm64 jammy image build on 2023-05-16
 linux_instance_type            = "t4g.micro"

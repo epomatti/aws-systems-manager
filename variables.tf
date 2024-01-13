@@ -57,3 +57,8 @@ variable "ssm_maintenance_window_schedule_run_command_operation" {
 variable "ssm_maintenance_windows_instance_type" {
   type = string
 }
+
+variable "ssm_patchmanager_quicksetup_config_id" {
+  type        = string
+  description = "This needs to be added to the instance profile or role as a tag"
+}

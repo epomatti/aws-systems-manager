@@ -34,6 +34,8 @@ module "vpc" {
 module "iam" {
   source   = "./modules/iam"
   workload = local.workload
+
+  ssm_patchmanager_quicksetup_config_id = var.ssm_patchmanager_quicksetup_config_id
 }
 
 resource "aws_key_pair" "default" {
