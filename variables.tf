@@ -2,18 +2,35 @@ variable "aws_region" {
   type = string
 }
 
-variable "linux_instance_type" {
+# Ubuntu
+variable "ubuntu_instance_type" {
   type = string
 }
 
-variable "linux_ami" {
+variable "ubuntu_ami" {
   type = string
 }
 
-variable "create_default_linux_instances" {
+variable "create_default_ubuntu_instances" {
   type    = bool
   default = true
 }
+
+# Debian
+variable "debian_instance_type" {
+  type = string
+}
+
+variable "debian_ami" {
+  type = string
+}
+
+variable "create_default_debian_instances" {
+  type    = bool
+  default = true
+}
+
+# Windows
 
 variable "create_default_windows_instances" {
   type    = bool
@@ -27,6 +44,8 @@ variable "windows_instance_type" {
 variable "windows_ami" {
   type = string
 }
+
+### ASG ###
 
 variable "create_asg" {
   type = bool

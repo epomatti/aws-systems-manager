@@ -2,7 +2,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "5.32.1"
+      version = "5.33.0"
     }
   }
 }
@@ -54,17 +54,35 @@ module "ssm" {
 
 ### Instances ###
 module "ubuntu_default" {
-  count                   = var.create_default_linux_instances == true ? 1 : 0
+  count                   = var.create_default_ubuntu_instances == true ? 1 : 0
   source                  = "./modules/ec2"
   workload                = local.workload
   iam_instance_profile_id = module.iam.instance_profile_id
   key_name                = aws_key_pair.default.key_name
-  instance_type           = var.linux_instance_type
-  ami                     = var.linux_ami
+  instance_type           = var.ubuntu_instance_type
+  ami                     = var.ubuntu_ami
   security_group_id       = module.sg.sg_id
   subnet_id               = module.vpc.subnet_id
-  user_data_file          = "ubuntu-default.sh"
+  user_data_file          = "ubuntu.sh"
   instance_label          = "ubuntu-default"
+  environment_tag         = "Development"
+  platform_tag            = "Linux"
+
+  depends_on = [module.ssm]
+}
+
+module "debian_default" {
+  count                   = var.create_default_debian_instances == true ? 1 : 0
+  source                  = "./modules/ec2"
+  workload                = local.workload
+  iam_instance_profile_id = module.iam.instance_profile_id
+  key_name                = aws_key_pair.default.key_name
+  instance_type           = var.debian_instance_type
+  ami                     = var.debian_ami
+  security_group_id       = module.sg.sg_id
+  subnet_id               = module.vpc.subnet_id
+  user_data_file          = "debian.sh"
+  instance_label          = "debian"
   environment_tag         = "Development"
   platform_tag            = "Linux"
 
@@ -94,8 +112,8 @@ module "asg" {
   count         = var.create_asg == true ? 1 : 0
   source        = "./modules/asg"
   workload      = local.workload
-  instance_type = var.linux_instance_type
-  ami           = var.linux_ami
+  instance_type = var.ubuntu_instance_type
+  ami           = var.ubuntu_ami
   vpc_id        = module.vpc.vpc_id
   key_name      = aws_key_pair.default.key_name
   subnet_id     = module.vpc.subnet_id
@@ -113,7 +131,7 @@ module "mw_linux" {
   iam_instance_profile_id = module.iam.instance_profile_id
   key_name                = aws_key_pair.default.key_name
   instance_type           = var.ssm_maintenance_windows_instance_type
-  ami                     = var.linux_ami
+  ami                     = var.ubuntu_ami
   security_group_id       = module.sg.sg_id
   subnet_id               = module.vpc.subnet_id
   user_data_file          = "ubuntu-default.sh"
