@@ -64,12 +64,13 @@ module "ubuntu_default" {
   security_group_id       = module.sg.sg_id
   subnet_id               = module.vpc.subnet_id
   user_data_file          = "ubuntu.sh"
-  instance_label          = "ubuntu-default"
+  instance_label          = "ubuntu"
   environment_tag         = "Development"
   platform_tag            = "Linux"
 
   depends_on = [module.ssm]
 }
+
 
 module "debian_default" {
   count                   = var.create_default_debian_instances == true ? 1 : 0
@@ -81,8 +82,8 @@ module "debian_default" {
   ami                     = var.debian_ami
   security_group_id       = module.sg.sg_id
   subnet_id               = module.vpc.subnet_id
-  user_data_file          = "debian.sh"
-  instance_label          = "debian"
+  user_data_file          = "debian12.sh"
+  instance_label          = "debian12"
   environment_tag         = "Development"
   platform_tag            = "Linux"
 
