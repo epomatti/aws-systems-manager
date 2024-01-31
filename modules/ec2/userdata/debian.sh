@@ -26,16 +26,3 @@ dpkg -i -E ./amazon-cloudwatch-agent.deb
 
 ssmParameterName=AmazonCloudWatch-linux-for-PatchManager
 /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c ssm:$ssmParameterName -s
-
-
-### Nat Instance ###
-sysctl -w net.ipv4.ip_forward=1
-sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/' /etc/sysctl.conf
-sysctl -p
-
-apt install -y iptables-persistent
-iptables -t nat -A POSTROUTING -o ens5 -j MASQUERADE
-iptables-save  > /etc/iptables/rules.v4
-
-
-reboot

@@ -2,17 +2,6 @@ locals {
   user_data = "${path.module}/userdata/${var.user_data_file}"
 }
 
-resource "aws_eip" "default" {
-  instance = aws_instance.default.id
-  domain   = "vpc"
-
-  associate_with_private_ip = aws_instance.default.private_ip
-
-  tags = {
-    Name = "nat-${var.workload}"
-  }
-}
-
 resource "aws_instance" "default" {
   ami           = var.ami
   instance_type = var.instance_type
@@ -24,9 +13,6 @@ resource "aws_instance" "default" {
   key_name                    = var.key_name
 
   user_data = file(local.user_data)
-
-  # Requirement for NAT
-  source_dest_check = false
 
   metadata_options {
     http_endpoint = "enabled"
