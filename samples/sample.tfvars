@@ -3,7 +3,7 @@ aws_region = "us-east-2"
 
 
 ### Default instances ###
-ssm_patchmanager_quicksetup_config_id = "<changeit>"
+ssm_patchmanager_quicksetup_config_id = "PLACEHOLDER"
 
 create_default_ubuntu_instances = true
 ubuntu_ami                      = "ami-03d9fcc39480315d4" # Canonical, Ubuntu, 24.04, arm64 noble image
