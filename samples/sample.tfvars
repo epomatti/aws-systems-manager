@@ -5,11 +5,11 @@ aws_region = "us-east-2"
 ### Default instances ###
 ssm_patchmanager_quicksetup_config_id = "<changeit>"
 
-create_default_ubuntu_instances = false
-ubuntu_ami                      = "ami-08fdd91d87f63bb09" # Canonical, Ubuntu, 22.04 LTS, arm64 jammy image build on 2023-05-16
+create_default_ubuntu_instances = true
+ubuntu_ami                      = "ami-03d9fcc39480315d4" # Canonical, Ubuntu, 24.04, arm64 noble image
 ubuntu_instance_type            = "t4g.micro"
 
-create_default_debian_instances = true
+create_default_debian_instances = false
 debian_ami                      = "ami-0c758b376a9cf7862" # Debian 12 (20231013-1532)
 debian_instance_type            = "t4g.nano"
 

@@ -23,6 +23,12 @@ Start by copying the `.auto.tfvars` file template:
 cp samples/sample.tfvars .auto.tfvars
 ```
 
+Set the Patch Manager quick setup config identification:
+
+```terraform
+ssm_patchmanager_quicksetup_config_id = "<>"
+```
+
 Generate a temporary key pair:
 
 ```sh
